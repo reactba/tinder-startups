@@ -27,20 +27,20 @@ Based on PRD: `prd-startup-discovery-app.md`
 
 ## Tasks
 
-- [ ] 1.0 Setup Project Structure and Dependencies
-  - [ ] 1.1 Initialize Next.js project with TypeScript and Tailwind CSS
-  - [ ] 1.2 Install required dependencies (react-swipeable, framer-motion, etc.)
-  - [ ] 1.3 Configure Jest and React Testing Library for testing
-  - [ ] 1.4 Set up ESLint and Prettier configuration
-  - [ ] 1.5 Create directory structure (components, lib, types, data)
-  - [ ] 1.6 Configure Tailwind CSS with custom theme for business context
+- [x] 1.0 Setup Project Structure and Dependencies
+  - [x] 1.1 Initialize Next.js project with TypeScript and Tailwind CSS
+  - [x] 1.2 Install required dependencies (react-swipeable, framer-motion, etc.)
+  - [x] 1.3 Configure Jest and React Testing Library for testing
+  - [x] 1.4 Set up ESLint and Prettier configuration
+  - [x] 1.5 Create directory structure (components, lib, types, data)
+  - [x] 1.6 Configure Tailwind CSS with custom theme for business context
 
-- [ ] 2.0 Create Startup Data Structure and Sample Data
-  - [ ] 2.1 Define TypeScript interfaces for startup data structure
-  - [ ] 2.2 Create sample startup data with realistic information
-  - [ ] 2.3 Add placeholder video URLs for pitch videos
-  - [ ] 2.4 Validate data structure with TypeScript compilation
-  - [ ] 2.5 Create utility functions for data validation and formatting
+- [x] 2.0 Create Startup Data Structure and Sample Data
+  - [x] 2.1 Define TypeScript interfaces for startup data structure
+  - [x] 2.2 Create sample startup data with realistic information
+  - [x] 2.3 Add placeholder video URLs for pitch videos
+  - [x] 2.4 Validate data structure with TypeScript compilation
+  - [x] 2.5 Create utility functions for data validation and formatting
 
 - [ ] 3.0 Implement Core SwipeCard Component
   - [ ] 3.1 Create basic SwipeCard component structure with video element
