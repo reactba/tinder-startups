@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "name": "GreenTech AI",
+    "sector": "Energía Renovable",
+    "videoUrl": "https://www.youtube.com/embed/2g811Eo7K8U",
+    "description": "Plataforma de IA para optimizar el consumo energético en empresas.",
+    "email": "contacto@greentechai.com"
+  },
+  {
+    "id": "2",
+    "name": "HealthNow",
+    "sector": "Salud Digital",
+    "videoUrl": "https://www.youtube.com/embed/1YyAzVmPp4A",
+    "description": "App de telemedicina con diagnóstico asistido por IA.",
+    "email": "info@healthnow.com"
+  }
+]
