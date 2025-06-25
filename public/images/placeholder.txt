@@ -1,0 +1,17 @@
+This directory is for startup logo images.
+
+Expected logo files:
+- ecocharge-logo.png
+- healthai-logo.png
+- finflow-logo.png
+- edutech-pro-logo.png
+- greenbuild-logo.png
+- datavault-logo.png
+- foodfresh-logo.png
+- mobilityx-logo.png
+
+Image specifications:
+- Format: PNG or SVG (preferred)
+- Size: 200x200px minimum
+- Background: Transparent or white
+- Style: Professional and clean 
