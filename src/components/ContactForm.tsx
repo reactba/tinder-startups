@@ -73,6 +73,44 @@ const ContactForm: React.FC<Props> = ({ startup, onClose }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [onClose]);
 
+  // Add CSS animation for spinner on client side only
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      @media (max-width: 768px) {
+        .contact-modal {
+          max-width: 95vw !important;
+          margin: 10px !important;
+        }
+        
+        .contact-form {
+          padding: 24px !important;
+        }
+        
+        .contact-title {
+          font-size: 20px !important;
+        }
+        
+        .contact-input {
+          font-size: 16px !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Cleanup function to remove the style when component unmounts
+    return () => {
+      if (document.head.contains(style)) {
+        document.head.removeChild(style);
+      }
+    };
+  }, []);
+
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
@@ -535,34 +573,5 @@ const styles: { [key: string]: React.CSSProperties } = {
     lineHeight: 1.5,
   },
 };
-
-// Add CSS animation for spinner
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  @media (max-width: 768px) {
-    .contact-modal {
-      max-width: 95vw !important;
-      margin: 10px !important;
-    }
-    
-    .contact-form {
-      padding: 24px !important;
-    }
-    
-    .contact-title {
-      font-size: 20px !important;
-    }
-    
-    .contact-input {
-      font-size: 16px !important;
-    }
-  }
-`;
-document.head.appendChild(style);
 
 export default ContactForm;
