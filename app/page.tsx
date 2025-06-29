@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import startupsData from '../data/startups.json';
-import SwipeCard from '../src/components/SwipeCard';
-import ContactForm from '../src/components/ContactForm';
+import React, { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import startupsData from "../data/startups.json";
+import SwipeCard from "../src/components/SwipeCard";
+import ContactForm from "../src/components/ContactForm";
 
 interface Startup {
   id: string;
@@ -88,15 +88,15 @@ export default function HomePage() {
       if (state.showForm) return; // Don't handle keys when form is open
 
       switch (e.key) {
-        case 'ArrowLeft':
+        case "ArrowLeft":
           e.preventDefault();
           handlePass();
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
           e.preventDefault();
           handleContact();
           break;
-        case 'Escape':
+        case "Escape":
           if (state.showForm) {
             handleFormClose();
           }
@@ -104,8 +104,8 @@ export default function HomePage() {
       }
     };
 
-    document.addEventListener('keydown', handleKeyPress);
-    return () => document.removeEventListener('keydown', handleKeyPress);
+    document.addEventListener("keydown", handleKeyPress);
+    return () => document.removeEventListener("keydown", handleKeyPress);
   }, [state.showForm, handlePass, handleContact, handleFormClose]);
 
   // Reset to first card when reaching the end
@@ -121,27 +121,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* SEO Meta Tags */}
-      <head>
-        <title>Tinder Startups - Descubre y conecta con startups innovadoras</title>
-        <meta
-          name="description"
-          content="Descubre startups innovadoras y conecta con emprendedores usando nuestra plataforma de swipe. Encuentra tu próxima oportunidad de inversión."
-        />
-        <meta
-          name="keywords"
-          content="startups, emprendimiento, inversión, innovación, tecnología"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:title" content="Tinder Startups" />
-        <meta
-          property="og:description"
-          content="Descubre startups innovadoras y conecta con emprendedores"
-        />
-        <meta property="og:type" content="website" />
-        <link rel="icon" href="/favicon.ico" />
-      </head>
-
       <main style={styles.main} role="main">
         {/* Header */}
         <header style={styles.header}>
@@ -149,16 +128,14 @@ export default function HomePage() {
             style={styles.title}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+            transition={{ duration: 0.6 }}>
             Tinder Startups
           </motion.h1>
           <motion.p
             style={styles.subtitle}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+            transition={{ duration: 0.6, delay: 0.2 }}>
             Descubre startups y conecta con un swipe
           </motion.p>
 
@@ -167,8 +144,7 @@ export default function HomePage() {
             style={styles.progressContainer}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
+            transition={{ duration: 0.6, delay: 0.4 }}>
             <div style={styles.progressBar}>
               <div
                 style={{
@@ -192,15 +168,13 @@ export default function HomePage() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                style={styles.errorContainer}
-              >
+                style={styles.errorContainer}>
                 <div style={styles.errorIcon}>⚠️</div>
                 <h3 style={styles.errorTitle}>Error</h3>
                 <p style={styles.errorMessage}>{state.error}</p>
                 <button
                   onClick={() => setState((prev) => ({ ...prev, error: null }))}
-                  style={styles.retryButton}
-                >
+                  style={styles.retryButton}>
                   Reintentar
                 </button>
               </motion.div>
@@ -213,8 +187,7 @@ export default function HomePage() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.8, y: -50 }}
                 transition={{ duration: 0.4 }}
-                style={styles.cardContainer}
-              >
+                style={styles.cardContainer}>
                 <SwipeCard
                   startup={currentStartup}
                   onSwipeRight={handleSwipeRight}
@@ -228,13 +201,12 @@ export default function HomePage() {
                 key="end-message"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                style={styles.endContainer}
-              >
+                style={styles.endContainer}>
                 <div style={styles.endIcon}>🎉</div>
                 <h2 style={styles.endTitle}>¡No hay más startups por hoy!</h2>
                 <p style={styles.endMessage}>
-                  Has revisado todas las startups disponibles. Vuelve mañana para descubrir nuevas
-                  oportunidades.
+                  Has revisado todas las startups disponibles. Vuelve mañana
+                  para descubrir nuevas oportunidades.
                 </p>
                 <button onClick={handleReset} style={styles.resetButton}>
                   Ver desde el principio
@@ -250,15 +222,13 @@ export default function HomePage() {
             style={styles.navigation}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
+            transition={{ duration: 0.6, delay: 0.6 }}>
             <button
               onClick={handlePass}
               style={styles.navButton}
               className="pass-button"
               aria-label="Pasar startup"
-              title="Pasar (Flecha izquierda)"
-            >
+              title="Pasar (Flecha izquierda)">
               <span style={styles.navButtonIcon}>✕</span>
               <span style={styles.navButtonText}>Pasar</span>
             </button>
@@ -268,8 +238,7 @@ export default function HomePage() {
               style={styles.navButton}
               className="contact-button"
               aria-label="Contactar startup"
-              title="Contactar (Flecha derecha)"
-            >
+              title="Contactar (Flecha derecha)">
               <span style={styles.navButtonIcon}>♥</span>
               <span style={styles.navButtonText}>Contactar</span>
             </button>
@@ -281,20 +250,24 @@ export default function HomePage() {
           style={styles.footer}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
+          transition={{ duration: 0.6, delay: 0.8 }}>
           <p style={styles.instructions}>
-            <strong>Navegación:</strong> Usa las flechas del teclado o desliza las tarjetas
+            <strong>Navegación:</strong> Usa las flechas del teclado o desliza
+            las tarjetas
           </p>
           <p style={styles.instructions}>
-            <strong>Flecha izquierda:</strong> Pasar | <strong>Flecha derecha:</strong> Contactar
+            <strong>Flecha izquierda:</strong> Pasar |{" "}
+            <strong>Flecha derecha:</strong> Contactar
           </p>
         </motion.footer>
 
         {/* Contact Form Modal */}
         <AnimatePresence>
           {state.showForm && state.selectedStartup && (
-            <ContactForm startup={state.selectedStartup} onClose={handleFormClose} />
+            <ContactForm
+              startup={state.selectedStartup}
+              onClose={handleFormClose}
+            />
           )}
         </AnimatePresence>
       </main>
@@ -304,84 +277,84 @@ export default function HomePage() {
 
 const styles: { [key: string]: React.CSSProperties } = {
   main: {
-    minHeight: '100vh',
-    background: 'linear-gradient(135deg, #1a1a1a 60%, #ff0033 100%)',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    padding: '20px',
-    position: 'relative',
-    overflow: 'hidden',
+    minHeight: "100vh",
+    background: "linear-gradient(135deg, #1a1a1a 60%, #ff0033 100%)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: "20px",
+    position: "relative",
+    overflow: "hidden",
   },
   header: {
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 32,
-    width: '100%',
+    width: "100%",
     maxWidth: 600,
   },
   title: {
-    color: '#ff0033',
-    fontSize: 'clamp(32px, 6vw, 48px)',
+    color: "#ff0033",
+    fontSize: "clamp(32px, 6vw, 48px)",
     fontWeight: 900,
     marginBottom: 12,
     letterSpacing: 1.5,
-    textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+    textShadow: "0 2px 4px rgba(0,0,0,0.3)",
   },
   subtitle: {
-    color: '#fff',
-    fontSize: 'clamp(16px, 3vw, 20px)',
+    color: "#fff",
+    fontSize: "clamp(16px, 3vw, 20px)",
     marginBottom: 24,
     fontWeight: 500,
     opacity: 0.9,
   },
   progressContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     gap: 8,
   },
   progressBar: {
     width: 200,
     height: 6,
-    background: 'rgba(255,255,255,0.2)',
+    background: "rgba(255,255,255,0.2)",
     borderRadius: 3,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   progressFill: {
-    height: '100%',
-    background: '#ff0033',
+    height: "100%",
+    background: "#ff0033",
     borderRadius: 3,
-    transition: 'width 0.3s ease',
+    transition: "width 0.3s ease",
   },
   progressText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
     fontWeight: 600,
     opacity: 0.8,
   },
   content: {
     flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
     maxWidth: 600,
-    position: 'relative',
+    position: "relative",
   },
   cardContainer: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   endContainer: {
-    textAlign: 'center',
+    textAlign: "center",
     padding: 48,
-    background: 'rgba(255,255,255,0.1)',
+    background: "rgba(255,255,255,0.1)",
     borderRadius: 24,
-    backdropFilter: 'blur(10px)',
-    border: '1px solid rgba(255,255,255,0.2)',
+    backdropFilter: "blur(10px)",
+    border: "1px solid rgba(255,255,255,0.2)",
     maxWidth: 400,
   },
   endIcon: {
@@ -389,35 +362,35 @@ const styles: { [key: string]: React.CSSProperties } = {
     marginBottom: 16,
   },
   endTitle: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 28,
     fontWeight: 700,
     marginBottom: 16,
   },
   endMessage: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
     lineHeight: 1.5,
     marginBottom: 24,
     opacity: 0.9,
   },
   resetButton: {
-    background: '#ff0033',
-    color: '#fff',
-    border: 'none',
+    background: "#ff0033",
+    color: "#fff",
+    border: "none",
     borderRadius: 12,
-    padding: '12px 24px',
+    padding: "12px 24px",
     fontSize: 16,
     fontWeight: 600,
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
+    cursor: "pointer",
+    transition: "all 0.2s ease",
   },
   errorContainer: {
-    textAlign: 'center',
+    textAlign: "center",
     padding: 32,
-    background: 'rgba(220, 53, 69, 0.1)',
+    background: "rgba(220, 53, 69, 0.1)",
     borderRadius: 16,
-    border: '1px solid rgba(220, 53, 69, 0.3)',
+    border: "1px solid rgba(220, 53, 69, 0.3)",
     maxWidth: 400,
   },
   errorIcon: {
@@ -425,43 +398,43 @@ const styles: { [key: string]: React.CSSProperties } = {
     marginBottom: 16,
   },
   errorTitle: {
-    color: '#dc3545',
+    color: "#dc3545",
     fontSize: 24,
     fontWeight: 700,
     marginBottom: 12,
   },
   errorMessage: {
-    color: '#dc3545',
+    color: "#dc3545",
     fontSize: 16,
     marginBottom: 20,
   },
   retryButton: {
-    background: '#dc3545',
-    color: '#fff',
-    border: 'none',
+    background: "#dc3545",
+    color: "#fff",
+    border: "none",
     borderRadius: 8,
-    padding: '8px 16px',
+    padding: "8px 16px",
     fontSize: 14,
-    cursor: 'pointer',
+    cursor: "pointer",
   },
   navigation: {
-    display: 'flex',
+    display: "flex",
     gap: 20,
     marginTop: 32,
     marginBottom: 20,
   },
   navButton: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     gap: 8,
-    background: 'rgba(255,255,255,0.1)',
-    border: '2px solid rgba(255,255,255,0.2)',
+    background: "rgba(255,255,255,0.1)",
+    border: "2px solid rgba(255,255,255,0.2)",
     borderRadius: 16,
-    padding: '16px 24px',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-    backdropFilter: 'blur(10px)',
+    padding: "16px 24px",
+    cursor: "pointer",
+    transition: "all 0.2s ease",
+    backdropFilter: "blur(10px)",
     minWidth: 120,
   },
   navButtonIcon: {
@@ -469,25 +442,25 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontWeight: 700,
   },
   navButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
     fontWeight: 600,
   },
   footer: {
-    textAlign: 'center',
-    marginTop: 'auto',
+    textAlign: "center",
+    marginTop: "auto",
     paddingTop: 20,
   },
   instructions: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
-    margin: '4px 0',
+    margin: "4px 0",
     opacity: 0.7,
   },
 };
 
 // Add responsive styles
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.textContent = `
   @media (max-width: 768px) {
     .pass-button:hover,
