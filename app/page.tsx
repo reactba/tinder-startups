@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import startupsData from '../data/startups.json';
 import SwipeCard from '../src/components/SwipeCard';
