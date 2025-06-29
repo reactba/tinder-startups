@@ -29,46 +29,6 @@ const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
   const [swipeDirection, setSwipeDirection] = useState<null | 'left' | 'right'>(null);
   const videoRef = useRef<HTMLIFrameElement>(null);
 
-  // Add CSS animation for spinner
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-      
-      @media (max-width: 768px) {
-        .swipe-card {
-          max-width: 90vw !important;
-          padding: 16px !important;
-        }
-        
-        .video-container {
-          height: 200px !important;
-        }
-        
-        .startup-name {
-          font-size: 24px !important;
-        }
-        
-        .startup-sector {
-          font-size: 16px !important;
-        }
-        
-        .startup-description {
-          font-size: 14px !important;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-    return () => {
-      if (document.head.contains(style)) {
-        document.head.removeChild(style);
-      }
-    };
-  }, []);
-
   // Reset states when startup changes
   useEffect(() => {
     setIsVideoLoading(true);
