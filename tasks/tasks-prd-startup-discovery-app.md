@@ -69,15 +69,15 @@ Based on PRD: `prd-startup-discovery-app.md`
   - [x] 5.6 Integrate ContactForm modal with main page
   - [x] 5.7 Add page title and meta tags for SEO
 
-- [ ] 6.0 Add Swipe Gesture Handling and Navigation
-  - [ ] 6.1 Implement touch/swipe gesture detection using react-swipeable
-  - [ ] 6.2 Add mouse drag support for desktop users
-  - [ ] 6.3 Implement left swipe logic (pass on startup)
-  - [ ] 6.4 Implement right swipe logic (open contact form)
-  - [ ] 6.5 Add visual feedback during swipe gestures
-  - [ ] 6.6 Implement smooth card transitions and animations
-  - [ ] 6.7 Add gesture threshold and velocity detection
-  - [ ] 6.8 Handle edge cases (no more cards, gesture conflicts)
+- [x] 6.0 Add Swipe Gesture Handling and Navigation
+  - [x] 6.1 Implement touch/swipe gesture detection using react-swipeable
+  - [x] 6.2 Add mouse drag support for desktop users
+  - [x] 6.3 Implement left swipe logic (pass on startup)
+  - [x] 6.4 Implement right swipe logic (open contact form)
+  - [x] 6.5 Add visual feedback during swipe gestures
+  - [x] 6.6 Implement smooth card transitions and animations
+  - [x] 6.7 Add gesture threshold and velocity detection
+  - [x] 6.8 Handle edge cases (no more cards, gesture conflicts)
 
 - [ ] 7.0 Implement Email Service and Form Submission
   - [ ] 7.1 Create email service utility functions

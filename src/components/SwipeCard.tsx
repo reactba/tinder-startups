@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { useSwipeable } from 'react-swipeable';
 
 interface Startup {
   id: string;
@@ -18,21 +19,17 @@ interface Props {
   onSwipeLeft: () => void;
 }
 
+const SWIPE_THRESHOLD = 100;
+
 const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
   const controls = useAnimation();
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [videoError, setVideoError] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState<null | 'left' | 'right'>(null);
   const videoRef = useRef<HTMLIFrameElement>(null);
 
-  // Reset states when startup changes
-  useEffect(() => {
-    setIsVideoLoading(true);
-    setVideoError(false);
-    controls.set({ x: 0, opacity: 1, scale: 1 });
-  }, [startup.id, controls]);
-
-  // Add CSS animation for spinner on client side only
+  // Add CSS animation for spinner
   useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
@@ -65,8 +62,6 @@ const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
       }
     `;
     document.head.appendChild(style);
-
-    // Cleanup function to remove the style when component unmounts
     return () => {
       if (document.head.contains(style)) {
         document.head.removeChild(style);
@@ -74,32 +69,18 @@ const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
     };
   }, []);
 
-  const handleDragStart = () => {
-    setIsDragging(true);
-  };
+  // Reset states when startup changes
+  useEffect(() => {
+    setIsVideoLoading(true);
+    setVideoError(false);
+    setSwipeDirection(null);
+    controls.set({ x: 0, opacity: 1, scale: 1, rotate: 0 });
+  }, [startup.id, controls]);
 
-  const handleDragEnd = (
-    _?: MouseEvent | TouchEvent | PointerEvent,
-    info?: { offset: { x: number }; velocity: { x: number } }
-  ) => {
-    setIsDragging(false);
-    const threshold = 120;
-    const velocityThreshold = 500;
-
-    if (!info) return;
-
-    if (info.offset.x > threshold || info.velocity.x > velocityThreshold) {
-      // Swipe right - like
-      controls.start({
-        x: 600,
-        opacity: 0,
-        scale: 0.8,
-        rotate: 15,
-        transition: { duration: 0.3, ease: 'easeOut' },
-      });
-      setTimeout(onSwipeRight, 300);
-    } else if (info.offset.x < -threshold || info.velocity.x < -velocityThreshold) {
-      // Swipe left - pass
+  // react-swipeable handlers
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => {
+      setSwipeDirection('left');
       controls.start({
         x: -600,
         opacity: 0,
@@ -107,26 +88,50 @@ const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
         rotate: -15,
         transition: { duration: 0.3, ease: 'easeOut' },
       });
-      setTimeout(onSwipeLeft, 300);
-    } else {
-      // Return to center
+      setTimeout(() => {
+        setSwipeDirection(null);
+        onSwipeLeft();
+      }, 300);
+    },
+    onSwipedRight: () => {
+      setSwipeDirection('right');
       controls.start({
-        x: 0,
-        opacity: 1,
-        scale: 1,
-        rotate: 0,
-        transition: { duration: 0.2, ease: 'easeOut' },
+        x: 600,
+        opacity: 0,
+        scale: 0.8,
+        rotate: 15,
+        transition: { duration: 0.3, ease: 'easeOut' },
       });
-    }
-  };
+      setTimeout(() => {
+        setSwipeDirection(null);
+        onSwipeRight();
+      }, 300);
+    },
+    onSwiping: ({ deltaX }) => {
+      setIsDragging(true);
+      controls.set({ x: deltaX, scale: 0.97, rotate: deltaX / 20 });
+    },
+    onTap: () => {},
+    onTouchEndOrOnMouseUp: () => {
+      setIsDragging(false);
+      controls.start({ x: 0, scale: 1, rotate: 0, transition: { duration: 0.2, ease: 'easeOut' } });
+    },
+    delta: SWIPE_THRESHOLD,
+    trackMouse: true,
+    preventScrollOnSwipe: true,
+  });
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowRight') {
-      handleDragEnd(undefined, { offset: { x: 200 }, velocity: { x: 600 } });
-    } else if (e.key === 'ArrowLeft') {
-      handleDragEnd(undefined, { offset: { x: -200 }, velocity: { x: -600 } });
-    }
-  };
+  // Keyboard navigation for accessibility
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'ArrowRight') {
+        onSwipeRight();
+      } else if (e.key === 'ArrowLeft') {
+        onSwipeLeft();
+      }
+    },
+    [onSwipeLeft, onSwipeRight]
+  );
 
   const handleVideoLoad = () => {
     setIsVideoLoading(false);
@@ -138,7 +143,6 @@ const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
   };
 
   const getVideoUrl = (url: string) => {
-    // Add autoplay and mute parameters for YouTube embeds
     if (url.includes('youtube.com/embed/')) {
       return `${url}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1`;
     }
@@ -146,23 +150,23 @@ const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
   };
 
   return (
-    <div style={styles.wrapper} role="region" aria-label={`Tarjeta de ${startup.name}`}>
+    <div
+      style={styles.wrapper}
+      role="region"
+      aria-label={`Tarjeta de ${startup.name}`}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      {...swipeHandlers}
+    >
       <motion.div
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.1}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
         animate={controls}
-        initial={{ x: 0, opacity: 1, scale: 1 }}
+        initial={{ x: 0, opacity: 1, scale: 1, rotate: 0 }}
         style={styles.card}
         whileTap={{ scale: 0.97 }}
         whileHover={{ scale: 1.02 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         role="button"
-        tabIndex={0}
         aria-label={`Desliza ${startup.name} hacia la derecha para contactar o hacia la izquierda para pasar`}
-        onKeyDown={handleKeyDown}
       >
         {/* Video Container with Loading States */}
         <div style={styles.videoContainer}>
@@ -178,7 +182,6 @@ const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
                 <p style={styles.loadingText}>Cargando video...</p>
               </motion.div>
             )}
-
             {videoError && (
               <motion.div
                 key="error"
@@ -200,7 +203,6 @@ const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
               </motion.div>
             )}
           </AnimatePresence>
-
           {!videoError && (
             <iframe
               ref={videoRef}
@@ -215,7 +217,6 @@ const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
             />
           )}
         </div>
-
         {/* Startup Information */}
         <div style={styles.infoContainer}>
           <h2 style={styles.name} id={`startup-name-${startup.id}`}>
@@ -228,7 +229,6 @@ const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
             {startup.description}
           </p>
         </div>
-
         {/* Swipe Indicators */}
         <AnimatePresence>
           {isDragging && (
@@ -236,9 +236,21 @@ const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              style={styles.swipeIndicator}
+              style={{
+                ...styles.swipeIndicator,
+                background:
+                  swipeDirection === 'left'
+                    ? '#dc3545cc'
+                    : swipeDirection === 'right'
+                      ? '#28a745cc'
+                      : 'rgba(0,0,0,0.8)',
+              }}
             >
-              <div style={styles.swipeText}>← Pasar | Contactar →</div>
+              <div style={styles.swipeText}>
+                {swipeDirection === 'left' && '← Pasar'}
+                {swipeDirection === 'right' && 'Contactar →'}
+                {!swipeDirection && '← Pasar | Contactar →'}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -255,6 +267,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     alignItems: 'center',
     minHeight: '60vh',
     padding: '20px',
+    outline: 'none',
   },
   card: {
     width: '100%',
