@@ -1,0 +1,17 @@
+This directory is for startup pitch videos.
+
+Expected video files:
+- ecocharge-pitch.mp4
+- healthai-pitch.mp4
+- finflow-pitch.mp4
+- edutech-pro-pitch.mp4
+- greenbuild-pitch.mp4
+- datavault-pitch.mp4
+- foodfresh-pitch.mp4
+- mobilityx-pitch.mp4
+
+Video specifications:
+- Format: MP4
+- Duration: 1-2 minutes
+- Resolution: 720p or higher
+- File size: Optimized for web delivery 

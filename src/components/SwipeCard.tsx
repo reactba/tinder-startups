@@ -1,5 +1,5 @@
-import React from "react";
-import { motion, useAnimation } from "framer-motion";
+import React from 'react';
+import { motion, useAnimation } from 'framer-motion';
 
 interface Startup {
   id: string;
@@ -40,7 +40,8 @@ const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
         animate={controls}
         initial={{ x: 0, opacity: 1 }}
         style={styles.card}
-        whileTap={{ scale: 0.97 }}>
+        whileTap={{ scale: 0.97 }}
+      >
         <div style={styles.videoContainer}>
           <iframe
             src={startup.videoUrl}
@@ -60,54 +61,54 @@ const SwipeCard: React.FC<Props> = ({ startup, onSwipeRight, onSwipeLeft }) => {
 
 const styles: { [key: string]: React.CSSProperties } = {
   wrapper: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "60vh",
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '60vh',
   },
   card: {
     width: 380,
-    background: "#fff",
+    background: '#fff',
     borderRadius: 28,
     padding: 24,
-    boxShadow: "0 8px 32px #ff003355",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    border: "2.5px solid #ff0033",
+    boxShadow: '0 8px 32px #ff003355',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    border: '2.5px solid #ff0033',
   },
   videoContainer: {
-    width: "100%",
+    width: '100%',
     height: 220,
     borderRadius: 20,
-    overflow: "hidden",
+    overflow: 'hidden',
     marginBottom: 18,
-    border: "2px solid #ff0033",
-    background: "#000",
+    border: '2px solid #ff0033',
+    background: '#000',
   },
   video: {
-    width: "100%",
-    height: "100%",
-    border: "none",
+    width: '100%',
+    height: '100%',
+    border: 'none',
     borderRadius: 20,
   },
   name: {
     fontSize: 28,
     fontWeight: 700,
-    color: "#ff0033",
-    margin: "12px 0 0 0",
+    color: '#ff0033',
+    margin: '12px 0 0 0',
   },
   sector: {
     fontSize: 18,
-    color: "#1a1a1a",
-    margin: "4px 0 8px 0",
+    color: '#1a1a1a',
+    margin: '4px 0 8px 0',
     fontWeight: 600,
   },
   description: {
     fontSize: 16,
-    color: "#333",
-    textAlign: "center",
+    color: '#333',
+    textAlign: 'center',
     marginTop: 8,
   },
 };

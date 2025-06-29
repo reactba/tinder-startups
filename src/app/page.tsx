@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import startupsData from "../../data/startups.json";
-import SwipeCard from "../components/SwipeCard";
-import ContactForm from "../components/ContactForm";
+import React, { useState } from 'react';
+import startupsData from '../../data/startups.json';
+import SwipeCard from '../components/SwipeCard';
+import ContactForm from '../components/ContactForm';
 
 interface Startup {
   id: string;
@@ -55,32 +55,32 @@ export default function HomePage() {
 
 const styles: { [key: string]: React.CSSProperties } = {
   main: {
-    minHeight: "100vh",
-    background: "linear-gradient(135deg, #1a1a1a 60%, #ff0033 100%)",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
+    minHeight: '100vh',
+    background: 'linear-gradient(135deg, #1a1a1a 60%, #ff0033 100%)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     paddingTop: 48,
   },
   title: {
-    color: "#ff0033",
+    color: '#ff0033',
     fontSize: 40,
     fontWeight: 900,
     marginBottom: 8,
     letterSpacing: 1.5,
   },
   subtitle: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 20,
     marginBottom: 32,
     fontWeight: 500,
   },
   endMsg: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 24,
     marginTop: 64,
     fontWeight: 700,
-    textAlign: "center",
+    textAlign: 'center',
   },
 };

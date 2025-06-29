@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 interface Startup {
   id: string;
@@ -15,15 +15,15 @@ interface Props {
 }
 
 const ContactForm: React.FC<Props> = ({ startup, onClose }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
   const [sent, setSent] = useState(false);
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
     // Guardar en localStorage
-    const prev = JSON.parse(localStorage.getItem("contacts") || "[]");
+    const prev = JSON.parse(localStorage.getItem('contacts') || '[]');
     prev.push({
       name,
       email,
@@ -31,7 +31,7 @@ const ContactForm: React.FC<Props> = ({ startup, onClose }) => {
       startupId: startup.id,
       date: new Date().toISOString(),
     });
-    localStorage.setItem("contacts", JSON.stringify(prev));
+    localStorage.setItem('contacts', JSON.stringify(prev));
     setSent(true);
     setTimeout(onClose, 1500);
   };
@@ -40,7 +40,7 @@ const ContactForm: React.FC<Props> = ({ startup, onClose }) => {
     <div style={styles.overlay}>
       <div style={styles.form}>
         {!sent ? (
-          <form onSubmit={handleSend} style={{ width: "100%" }}>
+          <form onSubmit={handleSend} style={{ width: '100%' }}>
             <h2 style={styles.title}>Contactar a {startup.name}</h2>
             <input
               style={styles.input}
@@ -72,9 +72,7 @@ const ContactForm: React.FC<Props> = ({ startup, onClose }) => {
             </button>
           </form>
         ) : (
-          <div style={styles.sent}>
-            ¡Enviado! La startup recibirá tu contacto.
-          </div>
+          <div style={styles.sent}>¡Enviado! La startup recibirá tu contacto.</div>
         )}
       </div>
     </div>
@@ -83,73 +81,73 @@ const ContactForm: React.FC<Props> = ({ startup, onClose }) => {
 
 const styles: { [key: string]: React.CSSProperties } = {
   overlay: {
-    position: "fixed",
+    position: 'fixed',
     top: 0,
     left: 0,
-    width: "100vw",
-    height: "100vh",
-    background: "#1a1a1acc",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '100vw',
+    height: '100vh',
+    background: '#1a1a1acc',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     zIndex: 1000,
   },
   form: {
-    background: "#fff",
+    background: '#fff',
     borderRadius: 24,
     padding: 32,
     width: 340,
-    boxShadow: "0 8px 32px #ff003355",
-    display: "flex",
-    alignItems: "center",
+    boxShadow: '0 8px 32px #ff003355',
+    display: 'flex',
+    alignItems: 'center',
   },
   title: {
     fontSize: 22,
     fontWeight: 700,
-    color: "#ff0033",
+    color: '#ff0033',
     marginBottom: 18,
-    textAlign: "center",
+    textAlign: 'center',
   },
   input: {
-    width: "100%",
-    background: "#fff0f3",
-    border: "1.5px solid #ff0033",
+    width: '100%',
+    background: '#fff0f3',
+    border: '1.5px solid #ff0033',
     borderRadius: 12,
     padding: 12,
     marginBottom: 14,
     fontSize: 16,
-    color: "#1a1a1a",
-    outline: "none",
-    resize: "none",
+    color: '#1a1a1a',
+    outline: 'none',
+    resize: 'none',
   },
   button: {
-    background: "#ff0033",
+    background: '#ff0033',
     borderRadius: 12,
-    padding: "12px 0",
+    padding: '12px 0',
     marginTop: 8,
     marginBottom: 8,
-    width: "100%",
-    color: "#fff",
+    width: '100%',
+    color: '#fff',
     fontWeight: 700,
     fontSize: 18,
-    border: "none",
-    cursor: "pointer",
+    border: 'none',
+    cursor: 'pointer',
   },
   cancel: {
-    background: "none",
-    color: "#ff0033",
+    background: 'none',
+    color: '#ff0033',
     fontSize: 16,
-    border: "none",
-    cursor: "pointer",
-    width: "100%",
+    border: 'none',
+    cursor: 'pointer',
+    width: '100%',
     marginTop: 4,
   },
   sent: {
-    color: "#ff0033",
+    color: '#ff0033',
     fontSize: 20,
     fontWeight: 700,
-    textAlign: "center",
-    margin: "32px 0",
+    textAlign: 'center',
+    margin: '32px 0',
   },
 };
 
