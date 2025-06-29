@@ -42,14 +42,14 @@ Based on PRD: `prd-startup-discovery-app.md`
   - [x] 2.4 Validate data structure with TypeScript compilation
   - [x] 2.5 Create utility functions for data validation and formatting
 
-- [x] 3.0 Implement Core SwipeCard Component
-  - [x] 3.1 Create basic SwipeCard component structure with video element
-  - [x] 3.2 Implement video autoplay and controls functionality
-  - [x] 3.3 Add startup information overlay with proper styling
-  - [x] 3.4 Implement video loading states and error handling
-  - [x] 3.5 Add responsive design for mobile and desktop
-  - [x] 3.6 Create smooth animations for card transitions
-  - [x] 3.7 Add accessibility features (ARIA labels, keyboard navigation)
+- [ ] 3.0 Implement Core SwipeCard Component
+  - [ ] 3.1 Create basic SwipeCard component structure with video element
+  - [ ] 3.2 Implement video autoplay and controls functionality
+  - [ ] 3.3 Add startup information overlay with proper styling
+  - [ ] 3.4 Implement video loading states and error handling
+  - [ ] 3.5 Add responsive design for mobile and desktop
+  - [ ] 3.6 Create smooth animations for card transitions
+  - [ ] 3.7 Add accessibility features (ARIA labels, keyboard navigation)
 
 - [ ] 4.0 Build Contact Form Modal Component
   - [ ] 4.1 Create modal component with backdrop and close functionality
